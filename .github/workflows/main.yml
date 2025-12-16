@@ -1,0 +1,36 @@
+name: Check Bale Bot (Sequential)
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-bots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install libraries
+        run: |
+          pip install selenium requests webdriver-manager
+
+      # اجرای مرحله به مرحله (زنجیره‌ای)
+      
+      - name: Run Part 1
+        run: python part1.py
+        
+      - name: Run Part 2
+        run: python part2.py
+        
+      - name: Run Part 3
+        run: python part3.py
+        
+      - name: Run Part 4
+        run: python part4.py
